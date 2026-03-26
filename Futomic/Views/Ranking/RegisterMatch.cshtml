@@ -1,0 +1,76 @@
+﻿@using Futomic.View_Models
+@model RegisterMatchViewModel
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+
+            <div class="card">
+                <h3 class="text-center mb-4">
+                    @(Model.MatchId == 0 ? "Registrar Partido" : "Editar Partido")
+                </h3>
+
+                <form method="post">
+
+                    <!-- Equipo A -->
+                    <div class="mb-3">
+                        <label asp-for="TeamAId" class="form-label fw-semibold">
+                            Equipo Local
+                        </label>
+                        <select asp-for="TeamAId"
+                                asp-items="@(new SelectList(Model.Teams, "TeamId", "Name"))"
+                                class="form-control">
+                            <option value="">-- Selecciona equipo --</option>
+                        </select>
+                        <span asp-validation-for="TeamAId" class="text-danger"></span>
+                    </div>
+
+                    <!-- Equipo B -->
+                    <div class="mb-3">
+                        <label asp-for="TeamBId" class="form-label fw-semibold">
+                            Equipo Visitante
+                        </label>
+                        <select asp-for="TeamBId"
+                                asp-items="@(new SelectList(Model.Teams, "TeamId", "Name"))"
+                                class="form-control">
+                            <option value="">-- Selecciona equipo --</option>
+                        </select>
+                        <span asp-validation-for="TeamBId" class="text-danger"></span>
+                    </div>
+
+                    <!-- Resultado -->
+                    <div class="mb-4">
+                        <label asp-for="Result" class="form-label fw-semibold">
+                            Resultado (desde el punto de vista del Equipo Local)
+                        </label>
+                        <select asp-for="Result" class="form-control">
+                            <option value="">-- Selecciona resultado --</option>
+                            <option>Victoria</option>
+                            <option>Empate</option>
+                            <option>Derrota</option>
+                        </select>
+                        <span asp-validation-for="Result" class="text-danger"></span>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a asp-action="Index" class="btn btn-outline-light">
+                            Volver
+                        </a>
+
+                        <button type="submit" class="btn btn-primary px-4">
+                            Guardar Partido
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

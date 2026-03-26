@@ -1,0 +1,93 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Registro";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+
+                    <h2 class="text-center fw-bold mb-4">
+                        Crear cuenta en Futomic
+                    </h2>
+
+                    <form method="post">
+
+                        <div asp-validation-summary="All" class="alert alert-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Name" class="form-label"></label>
+                            <input asp-for="Input.Name" class="form-control" />
+                            <span asp-validation-for="Input.Name" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.LastName" class="form-label"></label>
+                            <input asp-for="Input.LastName" class="form-control" />
+                            <span asp-validation-for="Input.LastName" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.DNI" class="form-label"></label>
+                            <input asp-for="Input.DNI" class="form-control" />
+                            <span asp-validation-for="Input.DNI" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Email" class="form-label"></label>
+                            <input asp-for="Input.Email" class="form-control" />
+                            <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Password" class="form-label"></label>
+                            <input asp-for="Input.Password" class="form-control" />
+                            <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.ConfirmPassword" class="form-label"></label>
+                            <input asp-for="Input.ConfirmPassword" class="form-control" />
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Input.Position" class="form-label"></label>
+                            <select asp-for="Input.Position"
+                                    class="form-select"
+                                    asp-items="Html.GetEnumSelectList<Posicion>()">
+                                <option value="">Selecciona tu posición favorita</option>
+                            </select>
+                            <span asp-validation-for="Input.Position" class="text-danger small"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100 fw-bold">
+                            Registrarse
+                        </button>
+
+                        <div class="text-center mt-3">
+                            <span class="text-muted">
+                                ¿Ya tienes cuenta?
+                            </span>
+                            <a asp-page="/Account/Login" class="fw-semibold text-decoration-none">
+                                Inicia sesión
+                            </a>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

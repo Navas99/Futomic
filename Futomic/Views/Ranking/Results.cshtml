@@ -1,0 +1,90 @@
+﻿@using Futomic.View_Models
+@model IEnumerable<MatchResultViewModel>
+
+<div class="container mt-4">
+
+    <div class="card">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="fw-bold mb-0">Últimos Resultados</h2>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Equipo A</th>
+                        <th>Equipo B</th>
+                        <th>Resultado</th>
+                        <th>Nivel</th>
+                        <th>Fecha</th>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <th class="text-end">Acciones</th>
+                        }
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var m in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    @if (!string.IsNullOrEmpty(m.TeamALogoUrl))
+                                    {
+                                        <img src="@m.TeamALogoUrl"
+                                             width="28"
+                                             height="28"
+                                             class="rounded-circle"
+                                             style="object-fit:cover;" />
+                                    }
+                                    <span class="fw-semibold">@m.TeamA</span>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    @if (!string.IsNullOrEmpty(m.TeamBLogoUrl))
+                                    {
+                                        <img src="@m.TeamBLogoUrl"
+                                             width="28"
+                                             height="28"
+                                             class="rounded-circle"
+                                             style="object-fit:cover;" />
+                                    }
+                                    <span class="fw-semibold">@m.TeamB</span>
+                                </div>
+                            </td>
+
+                            <td class="fw-bold">@m.Result</td>
+                            <td>
+                                <span class="badge bg-success">@m.Level</span>
+                            </td>
+                            <td>@m.PlayedAt.ToString("dd/MM/yyyy HH:mm")</td>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <td class="text-end">
+                                    <a asp-action="RegisterMatch"
+                                       asp-route-id="@m.MatchId"
+                                       class="btn btn-sm btn-outline-primary me-1">
+                                        Editar
+                                    </a>
+                                    <a asp-action="DeleteMatch"
+                                       asp-route-id="@m.MatchId"
+                                       class="btn btn-sm btn-outline-danger"
+                                       onclick="return confirm('¿Seguro que quieres eliminar este partido?');">
+                                        Eliminar
+                                    </a>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+

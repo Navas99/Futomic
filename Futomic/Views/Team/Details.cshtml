@@ -1,0 +1,36 @@
+﻿@model Futomic.Models.Team
+
+@{
+    ViewData["Title"] = "Detalles del Equipo";
+}
+
+<h2>Detalles del Equipo</h2>
+
+<div class="card mt-3 p-3">
+
+    @if (!string.IsNullOrEmpty(Model.LogoUrl))
+    {
+        <img src="@Model.LogoUrl"
+             alt="Logo @Model.Name"
+             class="mb-3"
+             style="width:120px;height:120px;object-fit:cover;border-radius:50%;" />
+    }
+
+    <h3>@Model.Name</h3>
+
+    <p><strong>Capitán:</strong> @Model.Captain</p>
+    <p><strong>Nivel:</strong> @Model.Level</p>
+    <p><strong>Media del equipo:</strong> @Model.AverageRating</p>
+    <p><strong>Fecha creación:</strong> @Model.CreationDate.ToShortDateString()</p>
+
+    <h4 class="mt-4">Jugadores</h4>
+    <ul>
+        @foreach (var u in Model.Users)
+        {
+            <li>@u.Name @u.LastName (@u.Position)</li>
+        }
+    </ul>
+
+    <a asp-action="Index" class="btn btn-secondary mt-3">Volver</a>
+</div>
+

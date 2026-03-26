@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Futomic</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    
+
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark futomic-navbar fixed-top">
+            <div class="container">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Futomic</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Team" asp-action="Index">Equipos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Ranking" asp-action="Index">Ranking</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Ranking" asp-action="Results">Resultados</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Team" asp-action="MyTeam">Mi Equipo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Reservation" asp-action="MyReservations">Mis Reservas</a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                        @if (User.Identity!.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                                    @User.Identity.Name
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Perfil</a></li>
+                                    <li><hr /></li>
+                                    <li>
+                                        <form method="post" asp-area="Identity" asp-page="/Account/Logout">
+                                            <button class="dropdown-item">Cerrar sesión</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="btn btn-outline-light me-2" asp-area="Identity" asp-page="/Account/Login">Iniciar sesión</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-light" asp-area="Identity" asp-page="/Account/Register">Registrarse</a>
+                            </li>
+                        }
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO -->
+    <div class="main-wrapper">
+        @RenderBody()
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer-futomic text-center mt-5">
+        © 2025 - Futomic - Reservas deportivas
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script async
+            src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap">
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

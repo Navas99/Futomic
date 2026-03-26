@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Futomic.Models.Team>
+
+@{
+    ViewData["Title"] = "Equipos";
+}
+
+<div class="container mt-4">
+
+    <div class="card">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="fw-bold mb-0">Listado de Equipos</h2>
+
+            <a asp-action="Create" class="btn btn-primary">
+                + Crear equipo
+            </a>
+        </div>
+
+        @if (TempData["success"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["success"]
+            </div>
+        }
+
+        @if (TempData["error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["error"]
+            </div>
+        }
+
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Logo</th>
+                        <th>Equipo</th>
+                        <th>Capitán</th>
+                        <th>Nivel</th>
+                        <th>Creado</th>
+                        <th class="text-end">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var team in Model)
+                    {
+                        <tr>
+                            <td>
+                                @if (!string.IsNullOrEmpty(team.LogoUrl))
+                                {
+                                    <img src="@team.LogoUrl"
+                                         alt="Logo @team.Name"
+                                         width="48"
+                                         height="48"
+                                         class="rounded-circle"
+                                         style="object-fit:cover;" />
+                                }
+                                else
+                                {
+                                    <span class="text-muted">—</span>
+                                }
+                            </td>
+
+                            <td class="fw-semibold">@team.Name</td>
+                            <td>@team.Captain</td>
+                            <td>
+                                <span class="badge bg-success">
+                                    @team.Level
+                                </span>
+                            </td>
+                            <td>@team.CreationDate.ToShortDateString()</td>
+
+                            <td class="text-end">
+                                <a asp-action="Details"
+                                   asp-route-id="@team.TeamId"
+                                   class="btn btn-sm btn-outline-primary">
+                                    Detalles
+                                </a>
+
+                                <form asp-action="Join"
+                                      asp-route-id="@team.TeamId"
+                                      method="post"
+                                      class="d-inline">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-success">
+                                        Unirse
+                                    </button>
+                                </form>
+
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-action="Edit"
+                                       asp-route-id="@team.TeamId"
+                                       class="btn btn-sm btn-warning ms-1">
+                                        Editar
+                                    </a>
+
+                                    <form asp-action="Delete"
+                                          asp-route-id="@team.TeamId"
+                                          method="post"
+                                          class="d-inline">
+                                        <button type="submit"
+                                                class="btn btn-sm btn-danger"
+                                                onclick="return confirm('¿Seguro que quieres eliminar este equipo?');">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+

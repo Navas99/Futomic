@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Futomic.Models.Field>
+
+<h2 class="mb-4">Resultados de búsqueda</h2>
+
+@if (!Model.Any())
+{
+    <p>No se encontraron campos para tu búsqueda.</p>
+}
+else
+{
+    <div class="row">
+        @foreach (var field in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@field.Name</h5>
+                        <p class="card-text">@field.Location</p>
+                        <p>Email de contacto: @field.EmailContact</p>
+                        <a asp-controller="Field"
+                           asp-action="Availability"
+                           asp-route-id="@field.FieldId"
+                           class="btn btn-success">
+                            Ver disponibilidad
+                        </a>
+                        <br />
+                        <!-- Mapa incrustado usando Plus Code si existe -->
+                        <div class="map-responsive mb-2">
+                            <iframe width="100"
+                                    height="200"
+                                    frameborder="0"
+                                    style="border:0"
+                                    src="https://www.google.com/maps?q=@(field.PlusCode ?? field.Location)&output=embed"
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+

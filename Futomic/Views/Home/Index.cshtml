@@ -1,0 +1,136 @@
+﻿@{
+    ViewData["Title"] = "Futomic – Reserva tu campo y juega";
+}
+
+<!-- HERO -->
+<section class="hero-section position-relative">
+    <div class="container h-100 d-flex align-items-center justify-content-center">
+        <div class="text-center">
+            <h1 class="display-4 fw-bold mb-3">
+                Reserva tu campo de fútbol
+            </h1>
+            <p class="lead mb-4">
+                Futomic · Encuentra, reserva y juega con tu equipo
+            </p>
+
+            <a href="/Identity/Account/Login" class="btn btn-light btn-lg px-5">
+                Comenzar ahora
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CONTENIDO -->
+<div class="container mt-5">
+
+    <!-- BUSCADOR -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10">
+
+            <div class="card info-box text-center">
+                <h3 class="fw-bold mb-3">
+                    Encuentra un campo cerca de ti
+                </h3>
+
+                <form method="get"
+                      action="@((User.Identity!.IsAuthenticated) ? "/Field/Search" : "/Identity/Account/Login")"
+                      class="row g-2 align-items-center">
+
+                    <div class="col-md-9">
+                        <input type="text"
+                               class="form-control form-control-lg"
+                               name="location"
+                               placeholder="Introduce una ciudad o ubicación" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <button class="btn btn-primary btn-lg w-100">
+                            Buscar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="row text-center mb-5">
+
+        <div class="col-md-4 mb-4">
+            <div class="card p-4 h-100">
+                <div class="mb-3 fs-1">⚽</div>
+                <h4 class="fw-bold mb-3">Reserva fácil</h4>
+                <p>
+                    Encuentra campos disponibles y reserva en segundos con horarios en tiempo real.
+                </p>
+                <a href="@((User.Identity.IsAuthenticated) ? "#" : "/Identity/Account/Login")"
+                   class="btn btn-outline-light btn-sm">
+                    Ver más
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card p-4 h-100">
+                <div class="mb-3 fs-1">👥</div>
+                <h4 class="fw-bold mb-3">Crea tu equipo</h4>
+                <p>
+                    Forma tu equipo, añade jugadores y gestiona tu plantilla fácilmente.
+                </p>
+                <a href="@((User.Identity.IsAuthenticated) ? "/Team/Create" : "/Identity/Account/Login")"
+                   class="btn btn-outline-light btn-sm">
+                    Crear equipo
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card p-4 h-100">
+                <div class="mb-3 fs-1">🏆</div>
+                <h4 class="fw-bold mb-3">Ranking y niveles</h4>
+                <p>
+                    Compite contra equipos de tu nivel y escala posiciones en la clasificación.
+                </p>
+                <a href="@((User.Identity.IsAuthenticated) ? "/Ranking/Index" : "/Identity/Account/Login")"
+                   class="btn btn-outline-light btn-sm">
+                    Ver ranking
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CAMPOS DESTACADOS -->
+    <h2 class="text-center fw-bold mb-4">
+        Campos destacados
+    </h2>
+
+    <div class="row">
+        @foreach (var field in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+
+                    <!-- Imagen opcional futura -->
+                    @* 
+                    <img src="@field.ImageUrl ?? "/images/placeholder.jpg"" 
+                         class="card-img-top" 
+                         alt="@field.Name"> 
+                    *@
+
+                    <div class="card-body text-center">
+                        <h5 class="fw-bold">@field.Name</h5>
+                        <p class="mb-0">@field.Location</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+
+
+
+

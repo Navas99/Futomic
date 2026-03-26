@@ -1,0 +1,33 @@
+﻿@model Futomic.Models.Reservation
+
+<div class="card p-4 shadow">
+    <h2 class="mb-3 text-success">Reserva confirmada ✅</h2>
+
+    <p><strong>Campo:</strong> @Model.Field!.Name</p>
+    <p><strong>Ubicación:</strong> @Model.Field.Location</p>
+
+    <hr />
+
+    <p><strong>Fecha:</strong> @Model.DateReservation.ToString("dd/MM/yyyy")</p>
+    <p><strong>Hora:</strong> @Model.DateReservation.ToString("HH:mm")</p>
+    <p><strong>Duración:</strong> @Model.Duration min</p>
+
+    <hr />
+
+    <p><strong>Método de pago:</strong> @Model.Paymen</p>
+    <p><strong>Precio:</strong> @Model.Price €</p>
+    <p>
+        <strong>Estado:</strong>
+        <span class="badge bg-warning text-dark">
+            @Model.State
+        </span>
+    </p>
+
+    <a class="btn btn-primary mt-3"
+       asp-action="DownloadPdf"
+       asp-route-id="@Model.ReservationId">
+        Descargar ticket PDF
+    </a>
+</div>
+
+

@@ -1,0 +1,62 @@
+﻿@using Futomic.View_Models
+@model TeamViewModel
+
+<div class="container mt-4">
+    <h2 class="mb-4 fw-bold">Crear Equipo</h2>
+
+    <div class="card shadow-sm p-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label fw-bold">Nombre del equipo</label>
+                <input asp-for="Name" class="form-control" placeholder="Ej: Los Futomicos" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            
+            <div class="mb-3">
+                <label asp-for="Captain" class="form-label fw-bold">Capitán</label>
+                <input asp-for="Captain" class="form-control" placeholder="Nombre del capitán" />
+                <span asp-validation-for="Captain" class="text-danger"></span>
+            </div>
+
+            
+            <div class="mb-3">
+                <label asp-for="LogoFile" class="form-label fw-bold">Logo</label>
+                <input asp-for="LogoFile" type="file" class="form-control" accept="image/*" onchange="previewLogo" />
+                <div class="mt-2">
+                    <img id="logoPreview" src="/images/default-team.png" alt="Preview del logo" class="rounded shadow-sm" style="width:100px; height:100px; object-fit:cover;" />
+                </div>
+            </div>
+
+            
+            <div class="mb-3">
+                <label asp-for="Level" class="form-label fw-bold">Nivel</label>
+                <select asp-for="Level" class="form-select" asp-items="@(ViewBag.Levels)">
+                    <option value="">Seleccione un nivel</option>
+                </select>
+                <span asp-validation-for="Level" class="text-danger"></span>
+            </div>
+
+            <button class="btn btn-success btn-lg mt-3">Crear equipo</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Preview del logo al seleccionar archivo
+        function previewLogo(event) {
+            var reader = new FileReader();
+            reader.onload = function(){
+                var output = document.getElementById('logoPreview');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+}
+
+
+
+

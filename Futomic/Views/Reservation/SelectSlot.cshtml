@@ -1,0 +1,37 @@
+﻿@model Futomic.View_Models.ReservationCalendarViewModel
+
+<h2>Reservar – @Model.FieldName</h2>
+
+<form method="get">
+    <input type="hidden" name="fieldId" value="@Model.FieldId" />
+    <input type="date"
+           name="date"
+           value="@Model.SelectedDate.ToString("yyyy-MM-dd")"
+           min="@DateTime.Today.ToString("yyyy-MM-dd")"
+           class="form-control mb-3"
+           onchange="this.form.submit()" />
+</form>
+
+<div class="row">
+    @foreach (var slot in Model.Slots)
+    {
+        <div class="col-md-3 mb-2">
+            @if (slot.IsAvailable)
+            {
+                <a asp-action="Create"
+                   asp-route-fieldId="@Model.FieldId"
+                   asp-route-date="@slot.Start"
+                   class="btn btn-success w-100">
+                    @slot.Start.ToString("HH:mm")
+                </a>
+            }
+            else
+            {
+                <button class="btn btn-secondary w-100" disabled>
+                    @slot.Start.ToString("HH:mm")
+                </button>
+            }
+        </div>
+    }
+</div>
+

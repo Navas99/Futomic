@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Futomic.Models.Field>
+@{
+    ViewData["Title"] = "Mapa de Campos";
+}
+
+<h2 class="mb-4">Todos los campos de fútbol</h2>
+<div id="map" style="width:100%;height:600px;"></div>
+
+<script>
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 11,
+            center: { lat: 40.4168, lng: -3.7038 } // Madrid por defecto
+        });
+
+        var fields = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model))
+
+        fields.forEach(function(field) {
+            var marker = new google.maps.Marker({
+                map: map,
+                position: { lat: field.latitude, lng: field.longitude },
+                title: field.name
+            });
+
+            var infoWindow = new google.maps.InfoWindow({
+                content: `<h5>${field.name}</h5><p>${field.location}</p>`
+            });
+
+            marker.addListener('click', function() {
+                infoWindow.open(map, marker);
+            });
+        });
+    }
+</script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap">
+</script>
+
+

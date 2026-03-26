@@ -1,0 +1,42 @@
+﻿@using Futomic.View_Models
+@model TeamEditViewModel
+
+<h2>Editar Equipo</h2>
+
+<form asp-action="Edit" enctype="multipart/form-data">
+    <input type="hidden" asp-for="TeamId" />
+
+    <div class="mb-3">
+        <label>Nombre</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Capitán</label>
+        <input asp-for="Captain" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Nivel</label>
+        <select asp-for="Level" class="form-select"
+                asp-items="Html.GetEnumSelectList<LevelTeam>()">
+        </select>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.ExistingLogoUrl))
+    {
+        <div class="mb-3">
+            <label>Logo actual</label><br />
+            <img src="@Model.ExistingLogoUrl" height="80" />
+        </div>
+    }
+
+    <div class="mb-3">
+        <label>Nuevo logo</label>
+        <input asp-for="LogoFile" type="file" class="form-control" />
+    </div>
+
+    <button class="btn btn-primary">Guardar cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
